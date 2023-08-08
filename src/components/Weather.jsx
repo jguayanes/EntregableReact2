@@ -12,12 +12,12 @@ const Weather = ({weatherInfo}) => {
     }
 
     return (
-        <section className="flex gap-5 flex-col mt-9">
+        <section className="flex gap-5 flex-col mt-10 truncate">
             <h2 className="text-black text-center text-4xl">{weatherInfo?.sys.country}, {weatherInfo?.name}</h2>
 
-            <section className="flex flex-col items-center justify-center gap-8 sm:flex sm:flex-row" >
+            <section className="flex flex-col items-center justify-center ml-2 mr-2 gap-8 sm:flex sm:flex-row" >
                 {/* Sección superios */}
-                <section className="bg-white/60 p-2 py-4 rounded-2xl w-[449px] ">
+                <section className="bg-white/60  p-2 py-4 rounded-2xl w-[410px] ">
                     <h4 className="text-center text-2xl capitalize">{weatherInfo?.weather[0].description}</h4>
                     <div className="flex place-content-around  items-center">
                     <span className="text-[45px]">{ iscelcius 
@@ -30,7 +30,7 @@ const Weather = ({weatherInfo}) => {
                     </div>
                 </section>
                 {/* Seccion inferior */}
-                <section className="bg-white/60 p-2 py-4 rounded-2xl flex justify-center w-[449px] gap-5 sm:flex-col sm:w-[128px] sm:h-[265px]">
+                <section className="bg-white/60 p-2 py-4 rounded-2xl flex justify-center w-[410px] gap-5 sm:flex-col sm:w-[128px] sm:h-[265px]">
                     <article className="flex justify-center gap-3">
                         <div>
                             <img src="/viento.png" alt="" />

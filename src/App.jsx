@@ -38,7 +38,7 @@ function App() {
 }
 
   return (
-    <main className='bg-black min-h-screen font-lato flex flex-col scroll-px-4 bg-[url(/paisaje1.1.jpg)] bg-cover'>
+    <main className='bg-black min-h-screen font-lato flex flex-col scroll-px-4 bg-[url(/paisaje1.1.jpg)] bg-cover '>
       <Weather weatherInfo={weatherInfo}/>
     </main>
   )
