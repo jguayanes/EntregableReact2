@@ -1,38 +1,46 @@
-import { kelvinToCelcius } from "../utils/kelvinToCelcius"
-import { kelvinToFahrenheit } from "../utils/kelvinToFahrenheit"
-import axios from "axios"
-import { useState } from "react"
+import { kelvinToCelcius } from "../utils/kelvinToCelcius";
+import { kelvinToFahrenheit } from "../utils/kelvinToFahrenheit";
+import axios from "axios";
+import { useState } from "react";
 
-const Search = ({weatherInfo,citys, setCity}) => {
-    const [iscelcius, setIscelcius] = useState(true)
-    const [citys, setCity] = useState()
+const Search = ({ weatherInfo, citys, setCity }) => {
+  const [iscelcius, setIscelcius] = useState(true);
+  const [citys, setCity] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const cityName = e.target.weatherInfo.value;
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        const cityName = e.target.weatherInfo.value
+    const apiKey = "408953d32ef358bb43dbca22013c66d3";
+    const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
 
-        const apiKey = '408953d32ef358bb43dbca22013c66d3'
-        const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`
+    axios
+      .get(url1)
+      .then(({ data }) => setCity(data))
+      .catch((err) => console.log(err));
+  };
 
-
-        axios.get(url1)        
-            .then(({data}) => setCity(data))
-            .catch((err) => console.log(err))
-        }
-
-    const handleTemperature = () =>{
-        setIscelcius(!iscelcius)
-    }
-    console.log(citys);
+  const handleTemperature = () => {
+    setIscelcius(!iscelcius);
+  };
+  console.log(citys);
   return (
     <main>
-        <form className="flex rounded-md overflow-hidden max-w-max mx-auto mt-8" onSubmit={handleSubmit}>
-            <input id="weatherInfo" autoComplete="off" placeholder="Type a City..." className="text-black p-1" type="text" />
-            <button className="bg-white/60 px-4">Search</button>
-        </form>
+      <form
+        className="flex rounded-md overflow-hidden max-w-max mx-auto mt-8"
+        onSubmit={handleSubmit}
+      >
+        <input
+          id="weatherInfo"
+          autoComplete="off"
+          placeholder="Type a City..."
+          className="text-black p-1"
+          type="text"
+        />
+        <button className="bg-white/60 px-4">Search</button>
+      </form>
 
-        {/* <section key={citys?.id}>
+      {/* <section key={citys?.id}>
         <section className="flex gap-5 flex-col mt-9">
             <h2 className="text-black text-center text-4xl">{citys?.sys.country}, {citys?.name}</h2>
 
@@ -92,7 +100,7 @@ const Search = ({weatherInfo,citys, setCity}) => {
         
          */}
     </main>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

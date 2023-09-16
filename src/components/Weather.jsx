@@ -1,73 +1,78 @@
-import { useState } from "react"
-import { kelvinToCelcius } from "../utils/kelvinToCelcius"
-import { kelvinToFahrenheit } from "../utils/kelvinToFahrenheit"
+import { useState } from "react";
+import { kelvinToCelcius } from "../utils/kelvinToCelcius";
+import { kelvinToFahrenheit } from "../utils/kelvinToFahrenheit";
 
+const Weather = ({ weatherInfo, setWeatherInfo }) => {
+  const [iscelcius, setIscelcius] = useState(true);
 
-const Weather = ({weatherInfo}) => {
+  const handleTemperature = () => {
+    setIscelcius(!iscelcius);
+  };
 
-    const [iscelcius, setIscelcius] = useState(true)
+  return (
+    <section className="flex gap-5 flex-col mt-10 truncate">
+      <h2 className="text-black text-center text-4xl">
+        {weatherInfo?.sys.country}, {weatherInfo?.name}
+      </h2>
 
-    const handleTemperature = () =>{
-        setIscelcius(!iscelcius)
-    }
-
-    return (
-        <section className="flex gap-5 flex-col mt-10 truncate">
-            <h2 className="text-black text-center text-4xl">{weatherInfo?.sys.country}, {weatherInfo?.name}</h2>
-
-            <section className="flex flex-col items-center justify-center ml-2 mr-2 gap-8 sm:flex sm:flex-row" >
-                {/* Sección superios */}
-                <section className="bg-white/60  p-2 py-4 rounded-2xl w-[410px] ">
-                    <h4 className="text-center text-2xl capitalize">{weatherInfo?.weather[0].description}</h4>
-                    <div className="flex place-content-around  items-center">
-                    <span className="text-[45px]">{ iscelcius 
-                    ? kelvinToCelcius(weatherInfo?.main.temp)
-                    : kelvinToFahrenheit(weatherInfo?.main.temp).toFixed()
-                }° {iscelcius ? "C" : "F" }</span>
-                    <div className="">
-                        <img src={`https://openweathermap.org/img/wn/${weatherInfo?.weather[0].icon}@4x.png`} alt="" />
-                    </div>
-                    </div>
-                </section>
-                {/* Seccion inferior */}
-                <section className="bg-white/60 p-2 py-4 rounded-2xl flex justify-center w-[410px] gap-5 sm:flex-col sm:w-[128px] sm:h-[265px]">
-                    <article className="flex justify-center gap-3">
-                        <div>
-                            <img src="/viento.png" alt="" />
-                        </div>
-                        <span >
-                            {weatherInfo?.wind.speed} m/s
-                        </span>
-                    </article>
-
-                    <article className="flex justify-center gap-8
-                    ">
-                        <div>
-                            <img src="/humedad.png" alt="" />
-                        </div>
-                        <span>
-                            {weatherInfo?.main.humidity} %
-                        </span>
-                    </article>
-
-                    <article className="flex justify-center gap-1">
-                        <div>
-                            <img src="/presion.png" alt="" />
-                        </div>
-                        <span>
-                            {weatherInfo?.main.pressure} hPa
-                        </span>
-                    </article>
-                </section>
-            </section>
-            <section className="flex justify-center">
-                <button onClick={handleTemperature} className="bg-white/60 p-3 w-[140px] rounded-2xl h-10 flex items-center justify-center text-sky-600">
-                    Change to {!iscelcius ? "C" : "F" }°
-                </button>
-            </section>
-            
+      <section className="flex flex-col items-center justify-center ml-2 mr-2 gap-8 sm:flex sm:flex-row p-5">
+        {/* Sección superios */}
+        <section className="bg-white/60  p-2 py-4 rounded-2xl w-[310px] sm:w-[410px]">
+          <h4 className="text-center text-2xl capitalize">
+            {weatherInfo?.weather[0].description}
+          </h4>
+          <div className="flex justify-center items-center">
+            <span className="text-[45px] grid items-center justify-center">
+              {iscelcius
+                ? kelvinToCelcius(weatherInfo?.main.temp)
+                : kelvinToFahrenheit(weatherInfo?.main.temp).toFixed()}
+              ° {iscelcius ? "C" : "F"}
+            </span>
+            <div className="">
+              <img
+                src={`https://openweathermap.org/img/wn/${weatherInfo?.weather[0].icon}@4x.png`}
+                alt=""
+              />
+            </div>
+          </div>
         </section>
-    )
-}
+        {/* Seccion inferior */}
+        <section className="bg-white/60 p-2 py-4 rounded-2xl flex justify-center items-center w-[310px] gap-5 sm:flex-col sm:w-[128px] sm:h-[265px]">
+          <article className="flex justify-center gap-3 items-center">
+            <div>
+              <img src="/viento.png" alt="" />
+            </div>
+            <span>{weatherInfo?.wind.speed} m/s</span>
+          </article>
 
-export default Weather
+          <article
+            className="flex justify-center gap-3
+                   items-center "
+          >
+            <div>
+              <img src="/humedad.png" alt="" />
+            </div>
+            <span>{weatherInfo?.main.humidity} %</span>
+          </article>
+
+          <article className="flex justify-center items-center gap-1">
+            <div>
+              <img src="/presion.png" alt="" />
+            </div>
+            <span>{weatherInfo?.main.pressure} hPa</span>
+          </article>
+        </section>
+      </section>
+      <section className="flex justify-center">
+        <button
+          onClick={handleTemperature}
+          className="bg-white/60 p-3 w-[140px] rounded-2xl h-10 flex items-center justify-center text-sky-600"
+        >
+          Change to {!iscelcius ? "C" : "F"}°
+        </button>
+      </section>
+    </section>
+  );
+};
+
+export default Weather;
